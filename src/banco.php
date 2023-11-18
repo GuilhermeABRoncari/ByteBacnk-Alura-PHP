@@ -1,11 +1,15 @@
 <?php
 
-require_once 'src/Conta.php';
-require_once 'src/Titular.php';
-require_once 'src/Cpf.php';
+require_once 'autoload.php';
 
-$primeiroCliente = new Titular('Guilherme Roncari', new Cpf('123.456.789-01'));
-$segundoCliente = new Titular('Raniere Souza', new Cpf('123.456.789-02'));
+use Alura\Banco\Modelo\Conta\Conta;
+use Alura\Banco\Modelo\Conta\Titular;
+use Alura\Banco\Modelo\{Cpf, Endereco, Funcionario};
+
+$endereco = new Endereco('Perdigão', 'Bairro', 'Rua', '10');
+
+$primeiroCliente = new Titular('Guilherme Roncari', new Cpf('123.456.789-01'), $endereco);
+$segundoCliente = new Titular('Raniere Souza', new Cpf('123.456.789-02'), $endereco);
 
 $primeiraConta = new Conta($primeiroCliente);
 $segundaConta = new Conta($segundoCliente);

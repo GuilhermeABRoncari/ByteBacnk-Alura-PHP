@@ -1,5 +1,9 @@
 <?php
 
+namespace Alura\Banco\Modelo;
+
+use \Exception;
+
 class Cpf
 {
     private string $numero;

@@ -1,6 +1,9 @@
 <?php
 
-require_once 'src/Cpf.php';
+namespace Alura\Banco\Modelo\Conta;
+
+use Alura\Banco\Modelo\Conta\Titular;
+use \Exception;
 
 class Conta 
 {
