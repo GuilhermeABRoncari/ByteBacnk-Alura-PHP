@@ -5,15 +5,15 @@ namespace Alura\Banco\Modelo\Conta;
 use Alura\Banco\Modelo\Conta\Titular;
 use \Exception;
 
-class Conta 
+abstract class Conta 
 {
     private Titular $titular;
-    private float $saldo;
+    protected float $saldo;
     private static int $numeroDeContas = 0;
 
-    public function __construct(Titular $cliente)
+    public function __construct(Titular $titular)
     { 
-        $this->titular = $cliente;
+        $this->titular = $titular;
         $this->saldo = 0;
 
         self::$numeroDeContas++;
@@ -31,9 +31,11 @@ class Conta
 
     public function sacar(float $valorASacar) : void
     {
-        if ($valorASacar > $this->saldo) throw new Exception("Saldo insuficiente.");
+        $valorFinalDoSaque = $valorASacar + ($valorASacar * $this->percentualTarifa());
+
+        if ($valorFinalDoSaque > $this->saldo) throw new Exception("Saldo insuficiente.");
         
-        $this->saldo -= $valorASacar;
+        $this->saldo -= $valorFinalDoSaque;
     }
 
     public function depositar(float $valorADepositar) : void
@@ -43,17 +45,10 @@ class Conta
         $this->saldo += $valorADepositar;
     }
 
-    public function transferir(float $valorTransferencia, Conta $conta) : void
-    {
-        if ($valorTransferencia > $this->saldo) throw new Exception("Saldo insuficiente para a transferencia.");
-
-        $this->sacar($valorTransferencia);
-
-        $conta->depositar($valorTransferencia);
-    }
-
     public static function totalDeContasCriadas() : int
     {
         return self::$numeroDeContas;
     }
+
+    abstract protected function percentualTarifa() : float;
 }
