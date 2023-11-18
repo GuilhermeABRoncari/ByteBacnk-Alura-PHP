@@ -19,7 +19,7 @@ class Titular
 
     public function getCpf(): string
     {
-        return $this->cpf->getCpf();
+        return $this->cpf->getNumero();
     }
 
 }
