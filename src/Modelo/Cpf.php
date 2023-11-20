@@ -4,7 +4,7 @@ namespace Alura\Banco\Modelo;
 
 use \Exception;
 
-class Cpf
+final class Cpf
 {
     private string $numero;
 
