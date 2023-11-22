@@ -2,8 +2,10 @@
 
 namespace Alura\Banco\Modelo\Conta;
 
-use Alura\Banco\Modelo\Conta\Titular;
 use \Exception;
+use Alura\Banco\Modelo\Conta\Titular;
+use Alura\Banco\Modelo\Conta\SaldoInsuficienteException;
+use InvalidArgumentException;
 
 abstract class Conta 
 {
@@ -33,14 +35,14 @@ abstract class Conta
     {
         $valorFinalDoSaque = $valorASacar + ($valorASacar * $this->percentualTarifa());
 
-        if ($valorFinalDoSaque > $this->saldo) throw new Exception("Saldo insuficiente.");
+        if ($valorFinalDoSaque > $this->saldo) throw new SaldoInsuficienteException($valorASacar, $this->saldo);
         
         $this->saldo -= $valorFinalDoSaque;
     }
 
     public function depositar(float $valorADepositar) : void
     {
-        if ($valorADepositar < 0) throw new Exception("Não se pode depositar valores negativos.");
+        if ($valorADepositar < 0) throw new InvalidArgumentException("Não se pode depositar valores negativos.");
 
         $this->saldo += $valorADepositar;
     }

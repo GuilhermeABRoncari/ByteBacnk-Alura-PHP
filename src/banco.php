@@ -17,6 +17,7 @@ $primeiraConta->depositar(100);
 $segundaConta->depositar(500);
 
 $segundaConta->transferir(50, $primeiraConta);
+$primeiraConta->sacar(600);
 
 echo "Efetua saque de 100 na conta do titular: {$primeiraConta->getTitular()->getNome()}" . PHP_EOL;
 $primeiraConta->sacar(100);
